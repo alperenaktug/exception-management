@@ -2,6 +2,9 @@ package com.alperenaktug.service.Impl;
 
 import com.alperenaktug.dto.DtoDepartment;
 import com.alperenaktug.dto.DtoEmployee;
+import com.alperenaktug.exception.BaseException;
+import com.alperenaktug.exception.ErrorMessage;
+import com.alperenaktug.exception.MessageType;
 import com.alperenaktug.model.Department;
 import com.alperenaktug.model.Employee;
 import com.alperenaktug.repository.EmployeeRepository;
@@ -25,7 +28,7 @@ public class EmployeeService implements IEmployeeService {
 
      Optional<Employee> optional = employeeRepository.findById(id);
      if(optional.isEmpty()){
-         return null;
+         throw new BaseException(new ErrorMessage(MessageType.NO_RECORD_EXIST , id.toString()));
      }
      Employee employee = optional.get();
         Department department = employee.getDepartment();
